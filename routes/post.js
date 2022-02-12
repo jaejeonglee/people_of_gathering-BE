@@ -16,7 +16,7 @@ router.get('/post', async (req, res) => { //전체 게시글 조회(메인 페�
 router.get('/post/:postId', async (req, res) => { //게시글, 댓글 가져오기(상세 페이지)
     const { postId } = req.params;
     const post = await Post.find({ postid : postId });
-    const comments = await Comments.find({ postid : postId })
+    const comments = await Comments.find({ postId : postId })
     res.json({ post, comments });
 });
 
@@ -30,7 +30,7 @@ router.post('/post', async (req, res) => { // 게시글 저장
 
 router.delete('/delete/:postId', authMiddleware, async (req, res) => { //게시글 삭제
     const { postId } = req.params;
-    await Post.deleteOne({ postid : postId });
+    await Post.deleteOne({ postId : postId });
     res.json({ success : "삭제가 완료 되었습니다"});
 });
 
