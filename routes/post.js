@@ -2,6 +2,7 @@ const express = require('express');
 const Post = require('../schemas/post');
 const router = express.Router();
 const uniqid = require('uniqid');
+const authMiddleware = require("../middlewares/auth");
 
 router.use(express.json());
 router.use(express.urlencoded({ extended : true }));
@@ -15,39 +16,39 @@ router.get('/post', async (req, res) => { //전체 게시글 조회(메인 페�
 router.get('/post/:postId', async (req, res) => { //게시글, 댓글 가져오기(상세 페이지)
     const { postId } = req.params;
     const post = await Post.find({ postid : postId });
-    // const comment = await Comment.find({ postid : postId })
-    res.json({ post });
+    const comment = await Comments.find({ postid : postId })
+    res.json({ post, comment });
 });
 
-router.post('/post', async (req, res) => { // 게시글 저장
+router.post('/post', authMiddleware, async (req, res) => { // 게시글 저장
     const postId = uniqid();
     const { title, userName, createDate, deadLine, category, curMembers, maxMembers, contents  } = req.body;
     await Post.create({ postId, userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents});
 
-    res.send({ success: "저장이 성공 하였습니다!!"});
+    res.json({ success: "저장이 성공 하였습니다!!"});
 });
 
-router.delete('/delete/:postId', async (req, res) => { //게시글 삭제
+router.delete('/delete/:postId', authMiddleware, async (req, res) => { //게시글 삭제
     const { postId } = req.params;
     await Post.deleteOne({ postid : postId });
     res.json({ success : "삭제가 완료 되었습니다"});
 });
 
-router.patch('/modify/:postId', async (req, res) => { //게시글 수정
-    const { title, userName, createDate, deadLine, category, curMembers, maxMembers, contents } = req.body // 클라이언트에서 전달 받은 수정 할 내용
+router.patch('/modify/:postId', authMiddleware, async (req, res) => { //게시글 수정
+    const { title, deadLine, category, maxMembers, contents } = req.body // 클라이언트에서 전달 받은 수정 할 내용
     const { postId } = req.params;
-    await Post.updateOne({postId}, {$set:{title, userName, createDate, deadLine, category, curMembers, maxMembers, contents}});
+    await Post.updateOne({postId}, {$set:{title, deadLine, category, maxMembers, contents}});
     res.json({ success : "수정 되었습니다" });
 });
 
-router.post('/join/:postId', async (req, res) => { //참여인원 추가
+router.post('/join/:postId', authMiddleware, async (req, res) => { //참여인원 추가
     const { postId } = req.params;
     const { curMembers } = req.body;
     await Post.updateOne({ postId }, { $push : { curMembers }});
     res.json({ success : "추가 되었습니다"});
 });
 
-router.patch('/join/:postId', async (req, res) => { //참여 취소
+router.patch('/join/:postId', authMiddleware, async (req, res) => { //참여 취소
     const { postId } = req.params;
     const { curMembers } = req.body;
     await Post.updateOne({ postId }, { $pull: { curMembers }});

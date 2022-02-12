@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken")
 const User = require("../schemas/user")
+const dotenv = require("dotenv").config();
 
 module.exports = (req, res, next) => {
   
@@ -13,7 +14,7 @@ module.exports = (req, res, next) => {
     }
 
     try {
-        const { userName } = jwt.verify(tokenValue, 'peopleofgethering-secret')
+        const { userName } = jwt.verify(tokenValue, `${process.env.KEY}`)
         User.find({ userName }).then(user => {
             res.locals.user = user
           

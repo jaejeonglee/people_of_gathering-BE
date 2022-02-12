@@ -1,8 +1,9 @@
 var express  = require('express');
 var router = express.Router();
-var Comment = require('../models/Comment');
-var Post = require('../models/Post');
-var util = require('../util');
+var Comment = require('../schemas/comments');
+var Post = require('../schemas/post');
+// var util = require('../util');
+const authMiddleware = require("../middlewares/auth");
 
 // create
 router.post('/comments/:postId', authMiddleware, async (req, res) => {
