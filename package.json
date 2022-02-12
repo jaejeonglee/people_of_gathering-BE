@@ -5,6 +5,7 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.1",
+    "joi": "^17.6.0",
     "uniqid": "^5.4.0"
   },
   "name": "mini_project",
