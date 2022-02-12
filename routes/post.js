@@ -1,5 +1,6 @@
 const express = require('express');
 const Post = require('../schemas/post');
+const Comment = require('../schemas/comments');
 const router = express.Router();
 const uniqid = require('uniqid');
 const authMiddleware = require("../middlewares/auth");
@@ -16,7 +17,7 @@ router.get('/post', async (req, res) => { //전체 게시글 조회(메인 페�
 router.get('/post/:postId', async (req, res) => { //게시글, 댓글 가져오기(상세 페이지)
     const { postId } = req.params;
     const post = await Post.find({ postId : postId });
-    const comments = await Comments.find({ postId : postId })
+    const comments = await Comment.find({ postId : postId })
     res.json({ post, comments });
 });
 
