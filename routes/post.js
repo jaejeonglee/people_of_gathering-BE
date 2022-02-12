@@ -24,7 +24,7 @@ router.get('/post/:postId', async (req, res) => { //게시글, 댓글 가져오�
     res.json({ post, comment });
 });
 
-router.post('/post', authMiddleware, async (req, res) => { // 게시글 저장
+router.post('/post', async (req, res) => { // 게시글 저장
     const postId = uniqid();
     const { title, userName, createDate, deadLine, category, curMembers, maxMembers, contents  } = req.body;
     await Post.create({ postId, userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents});
