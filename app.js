@@ -5,8 +5,8 @@ const ejs = require('ejs');
 const cors = require('cors');
 
 const postRouter = require('./routes/post');
-// const { userRouter } = require('./routes/user');
-// const { commentRouter } = require('./routes/comment');
+const { userRouter } = require('./routes/user');
+const { commentRouter } = require('./routes/comment');
 
 mongoose.connect('mongodb://localhost/mini', {
     ignoreUndefined: true,
@@ -22,7 +22,7 @@ const router = express.Router();
 
 app.use(express.json());
 app.use('/api', express.urlencoded({extended: false}), router); // API 요청에서 받은 body 값을 파싱(해석)하는 역할을 수행하는 것이 bodyParser
-app.use('/api', postRouter); //userRouter, commentRouter
+app.use('/api', postRouter,userRouter, commentRouter);
 app.use(express.static('static'))
 
 const corsOptions = {
@@ -31,6 +31,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.listen(3001, () => {
+app.listen(3000, () => {
     console.log( new Date().toLocaleString() , '서버가 요청을 받을 준비가 됐어요');
 });
