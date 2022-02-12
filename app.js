@@ -8,7 +8,7 @@ const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const commentRouter = require('./routes/comments');
 
-mongoose.connect('mongodb://localhost/mini', {
+mongoose.connect('mongodb://localhost:27017/mini_project', {
     ignoreUndefined: true,
     useNewUrlParser: true, //구문 분석 오류출력 없게해줌
     useUnifiedTopology: true, //현재 서버 검색 및 엔진 모니터링 방식을 더 이상 사용하지 않으므로 새로운 서버 및 엔진 모니터링 방식을 사용
