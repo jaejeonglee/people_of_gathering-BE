@@ -7,6 +7,10 @@ const authMiddleware = require("../middlewares/auth");
 router.use(express.json());
 router.use(express.urlencoded({ extended : true }));
 
+router.get("/", (req, res) => {  // 사이트 url "/" 화면
+    res.send("border page");
+  });
+
 router.get('/post', async (req, res) => { //전체 게시글 조회(메인 페이지)
     const { category } = req.query; //카테고리 검색
     const post = await Post.find({ category });
