@@ -7,10 +7,6 @@ const authMiddleware = require("../middlewares/auth");
 router.use(express.json());
 router.use(express.urlencoded({ extended : true }));
 
-router.get("/", (req, res) => {  // 사이트 url "/" 화면
-    res.send("border page");
-  });
-
 router.get('/post', async (req, res) => { //전체 게시글 조회(메인 페이지)
     const { category } = req.query; //카테고리 검색
     const post = await Post.find({ category });
@@ -20,14 +16,14 @@ router.get('/post', async (req, res) => { //전체 게시글 조회(메인 페�
 router.get('/post/:postId', async (req, res) => { //게시글, 댓글 가져오기(상세 페이지)
     const { postId } = req.params;
     const post = await Post.find({ postid : postId });
-    const comment = await Comments.find({ postid : postId })
-    res.json({ post, comment });
+    const comments = await Comments.find({ postid : postId })
+    res.json({ post, comments });
 });
 
 router.post('/post', async (req, res) => { // 게시글 저장
     const postId = uniqid();
-    const { title, userName, createDate, deadLine, category, curMembers, maxMembers, contents  } = req.body;
-    await Post.create({ postId, userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents});
+    const { userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents  } = req.body;
+    await Post.create({ postId, userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents });
 
     res.json({ success: "저장이 성공 하였습니다!!"});
 });

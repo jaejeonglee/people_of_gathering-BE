@@ -31,6 +31,10 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+app.get('/', (req, res) => {
+    res.send("hello world")
+})
+
 app.listen(3000, () => {
     console.log( new Date().toLocaleString() , '서버가 요청을 받을 준비가 됐어요');
 });
