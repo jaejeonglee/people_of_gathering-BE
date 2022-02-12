@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({   //Schema 생성
-    postid : {
-        type: Number,
+    postId : {
+        type: String,
         unique : true, //유니크 값
         required : true //필수 값
     },
