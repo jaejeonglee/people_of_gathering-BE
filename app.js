@@ -27,13 +27,15 @@ app.use(express.static('static'))
 
 const corsOptions = {
     origin: '*',
-    credentials: true
+    // credentials: true
 };
 app.use(cors(corsOptions));
 
-app.get('/', (req, res) => {
-    res.send("hello world")
-})
+app.get('/post', async (req, res) => { //전체 게시글 조회(메인 페이지)
+    const { category } = req.query; //카테고리 검색
+    const post = await Post.find({ category });
+    res.json({ post });
+});
 
 app.listen(3000, () => {
     console.log( new Date().toLocaleString() , '서버가 요청을 받을 준비가 됐어요');
