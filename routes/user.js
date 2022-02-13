@@ -2,7 +2,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../schemas/user")
 const Joi = require("joi")
-const cors = require('cors');
+const cors = require('cors')
+const bcrypt = require('bcrypt')
 
 const corsOptions = {
     origin: '*',
@@ -67,7 +68,8 @@ router.post("/signup", async (req, res) => {
             return;
         }
 
-        const user = new User({ userId, userName, password })
+        const hashed = await bcrypt.hash(password,10)
+        const user = new User({ userId, userName, password: hashed })
         await user.save()
         console.log(user)
         res.status(201).send({ result: 'success' })
@@ -91,7 +93,7 @@ router.post("/signup", async (req, res) => {
             res.status(400).send({
                 errorMessage: '비밀번호 형식을 확인해주세요.'
             })
-        } 
+        }
     }
 
 })
@@ -101,17 +103,26 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
     const { userId, password } = req.body
 
-    const user = await User.findOne({ userId, password })
+    const user = await User.findOne({ userId })
 
     if (!user) {
         res.status(401).send({
-            errorMessage: "이메일과 비밀번호를 확인해주세요."
+            errorMessage: "존재하지 않는 이메일입니다."
         })
         return
-    }
-    const token = jwt.sign({ userId: user.userId }, 'peopleofgethering-secret');
+    } else {
+        const correctPassword = await bcrypt.compareSync(password, user.password)//hash 값과 req값을 비교해서 일치하면 true 출력 
+        console.log(correctPassword)
+        if (correctPassword) {
+            const token = jwt.sign({ userId: user.userId }, 'peopleofgethering-secret');
     res.status(200).send({ token })
+        } else {
+            res.status(400).send({errorMessage: '비밀번호를 확인해주세요.' })
+        }
+    }
+  
 })
+
 
 
 module.exports = router;
