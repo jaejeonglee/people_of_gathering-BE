@@ -2,6 +2,13 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../schemas/user")
 const Joi = require("joi")
+const cors = require('cors');
+
+const corsOptions = {
+    origin: '*',
+    // credentials: true
+};
+router.use(cors(corsOptions));
 
 const router = express.Router();
 

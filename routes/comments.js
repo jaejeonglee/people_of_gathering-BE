@@ -4,6 +4,13 @@ var Comment = require('../schemas/comments');
 var Post = require('../schemas/post');
 // var util = require('../util');
 const authMiddleware = require("../middlewares/auth");
+const cors = require('cors');
+
+const corsOptions = {
+    origin: '*',
+    // credentials: true
+};
+router.use(cors(corsOptions));
 
 // create
 router.post('/comments/:postId', authMiddleware, async (req, res) => {
