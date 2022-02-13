@@ -32,7 +32,7 @@ const registerSchema = Joi.object({
 })
 
 //회원가입
-router.post("/signup", async (req, res) => {
+router.post("/user/signup", async (req, res) => {
 
     try {
         const { userId, userName, password, passwordConfirm } = await registerSchema.validateAsync(req.body)
@@ -100,7 +100,7 @@ router.post("/signup", async (req, res) => {
 
 
 //로그인, 토큰생성
-router.post("/login", async (req, res) => {
+router.post("/user/login", async (req, res) => {
     const { userId, password } = req.body
 
     const user = await User.findOne({ userId })
