@@ -10,6 +10,7 @@ const corsOptions = {
     origin: '*',
     // credentials: true
 };
+
 router.use(cors(corsOptions));
 router.use(express.json());
 router.use(express.urlencoded({ extended : true }));

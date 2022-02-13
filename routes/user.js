@@ -8,9 +8,8 @@ const corsOptions = {
     origin: '*',
     // credentials: true
 };
-router.use(cors(corsOptions));
-
 const router = express.Router();
+router.use(cors(corsOptions));
 
 //  회원 가입 양식
 const registerSchema = Joi.object({
