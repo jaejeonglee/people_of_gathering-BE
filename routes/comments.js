@@ -2,7 +2,6 @@ var express  = require('express');
 var router = express.Router();
 var Comment = require('../schemas/comments');
 var Post = require('../schemas/post');
-const User = require('../schemas/user');
 // var util = require('../util');
 const authMiddleware = require("../middlewares/auth");
 const cors = require('cors');
