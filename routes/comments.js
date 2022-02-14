@@ -23,7 +23,7 @@ router.post('/:postId',  async (req, res) => {
     commentId = recentComment[0]['commentId'] + 1;
   }
 
-  await Comment.create({ postId, commentId, content, userId, userName });
+  await Comment.create({ postId, commentId, content });
   res.send({ result: '성공' });
 });
 
