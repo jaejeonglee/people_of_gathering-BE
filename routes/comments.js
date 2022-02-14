@@ -13,7 +13,7 @@ const corsOptions = {
 router.use(cors(corsOptions));
 
 // create
-router.post('/:postId',  async (req, res) => {
+router.post('/:postId', authMiddleware, async (req, res) => {
   const { postId } = req.params;
   const { content } = req.body;
   const { userId, userName } = res.locals.user;
@@ -39,7 +39,7 @@ router.get('/:postId',  async (req, res) => {
   }
 });
 // comment modify
-router.put('/:commentId',  async (req, res) => {
+router.put('/:commentId', authMiddleware,  async (req, res) => {
   const { userId, userName } = res.locals.user;
   const { commentId } = req.params;
   const { content } = req.body;
