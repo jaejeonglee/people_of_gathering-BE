@@ -116,7 +116,7 @@ router.post("/login", async (req, res) => {
         console.log(correctPassword)
         if (correctPassword) {
             const userName = user.userName
-            const token = jwt.sign({ userId: user.userId }, 'peopleofgethering-secret');
+            const token = jwt.sign({ userId: user.userId }, `${process.env.KEY}`);
         res.status(200).send({ token, userName, userId })
         
         } else {
