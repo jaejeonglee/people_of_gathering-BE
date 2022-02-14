@@ -32,7 +32,7 @@ const registerSchema = Joi.object({
 })
 
 //회원가입
-router.post("/user/signup", async (req, res) => {
+router.post("/signup", async (req, res) => {
 
     try {
         const { userId, userName, password, passwordConfirm } = await registerSchema.validateAsync(req.body)
@@ -100,7 +100,7 @@ router.post("/user/signup", async (req, res) => {
 
 
 //로그인, 토큰생성
-router.post("/user/login", async (req, res) => {
+router.post("/login", async (req, res) => {
     const { userId, password } = req.body
 
     const user = await User.findOne({ userId })
@@ -114,7 +114,7 @@ router.post("/user/login", async (req, res) => {
         const correctPassword = await bcrypt.compareSync(password, user.password)//hash 값과 req값을 비교해서 일치하면 true 출력 
         console.log(correctPassword)
         if (correctPassword) {
-            const token = jwt.sign({ userId: user.userId }, 'peopleofgethering-secret');
+            const token = jwt.sign({ userId: user.userId }, `${process.env.KEY}`);
     res.status(200).send({ token })
         } else {
             res.status(400).send({errorMessage: '비밀번호를 확인해주세요.' })
