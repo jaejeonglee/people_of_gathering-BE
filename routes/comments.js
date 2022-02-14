@@ -21,8 +21,9 @@ router.post('/:postId',  async (req, res) => {
   if (recentComment.length != 0) {
     commentId = recentComment[0]['commentId'] + 1;
   }
+  console.log(content)
 
-  await Comment.create({ postId, commentId, content });
+  await Comment.create({ postId, commentId, content, userId, userName });
   res.send({ result: '성공' });
 });
 
