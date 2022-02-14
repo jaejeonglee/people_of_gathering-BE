@@ -31,9 +31,8 @@ router.post('/:postId',  async (req, res) => {
 router.get('/:postId',  async (req, res) => {
   try {
     const { postId } = req.params;
-    const { user } = await User.find({})
     let comments = await Comment.find({ postId }).sort('commentId').lean();
-    res.json({ comments, user });
+    res.json({ comments });
   } catch (err) {
     console.error(err);
   }
