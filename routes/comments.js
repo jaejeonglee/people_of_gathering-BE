@@ -2,6 +2,7 @@ var express  = require('express');
 var router = express.Router();
 var Comment = require('../schemas/comments');
 var Post = require('../schemas/post');
+const User = require('../schemas/user');
 // var util = require('../util');
 const authMiddleware = require("../middlewares/auth");
 const cors = require('cors');
@@ -30,8 +31,9 @@ router.post('/:postId',  async (req, res) => {
 router.get('/:postId',  async (req, res) => {
   try {
     const { postId } = req.params;
+    const { user } = await User.find({})
     let comments = await Comment.find({ postId }).sort('commentId').lean();
-    res.json({ comments });
+    res.json({ comments, user });
   } catch (err) {
     console.error(err);
   }
