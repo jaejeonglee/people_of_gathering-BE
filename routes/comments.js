@@ -16,7 +16,6 @@ router.use(cors(corsOptions));
 router.post('/:postId',  async (req, res) => {
   const { postId } = req.params;
   const { content } = req.body;
-  console.log(userId, userName);
   const recentComment = await Comment.find().sort('-commentId').limit(1);
   let commentId = 1;
   if (recentComment.length != 0) {
