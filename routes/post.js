@@ -15,20 +15,20 @@ router.use(cors(corsOptions));
 router.use(express.json());
 router.use(express.urlencoded({ extended : true }));
 
-router.get('/post', async (req, res) => { //전체 게시글 조회(메인 페이지)
+router.get('/', async (req, res) => { //전체 게시글 조회(메인 페이지)
     const { category } = req.query; //카테고리 검색
     const post = await Post.find({ category });
     res.json({ post });
 });
 
-router.get('/post/:postId', async (req, res) => { //게시글, 댓글 가져오기(상세 페이지)
+router.get('/:postId', async (req, res) => { //게시글, 댓글 가져오기(상세 페이지)
     const { postId } = req.params;
     const post = await Post.find({ postId : postId });
     const comments = await Comment.find({ postId : postId })
     res.json({ post, comments });
 });
 
-router.post('/post', async (req, res) => { // 게시글 저장
+router.post('/', async (req, res) => { // 게시글 저장
     const postId = uniqid();
     console.log(postId)
     const { userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents  } = req.body;

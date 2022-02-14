@@ -13,7 +13,7 @@ const corsOptions = {
 router.use(cors(corsOptions));
 
 // create
-router.post('/comments/:postId',  async (req, res) => {
+router.post('/:postId',  async (req, res) => {
   const { postId } = req.params;
   const { content } = req.body;
   const { userId, userName } = res.locals.user;
@@ -28,7 +28,7 @@ router.post('/comments/:postId',  async (req, res) => {
 });
 
 // comment list
-router.get('/comments/:postId',  async (req, res) => {
+router.get('/:postId',  async (req, res) => {
   try {
     const { postId } = req.params;
     let comments = await Comment.find({ postId }).sort('commentId').lean();
@@ -38,7 +38,7 @@ router.get('/comments/:postId',  async (req, res) => {
   }
 });
 // comment modify
-router.put('/comments/:commentId',  async (req, res) => {
+router.put('/:commentId',  async (req, res) => {
   const { userId, userName } = res.locals.user;
   const { commentId } = req.params;
   const { content } = req.body;
@@ -51,14 +51,14 @@ router.put('/comments/:commentId',  async (req, res) => {
   res.send({ result: '성공' });
 });
 
-router.get('/comments/modify/:commentId',  async (req, res) => {
+router.get('/modify/:commentId',  async (req, res) => {
   const { commentId } = req.params;
   comment = await Comment.findOne({ commentId });
   res.json({ comment });
 });
 
 // comment destroy
-router.delete('/comments/:commentId',  async (req, res) => {
+router.delete('/:commentId',  async (req, res) => {
   const { userId } = res.locals.user;
   const { commentId } = req.params;
   await Comment.deleteOne({ userId, commentId });
