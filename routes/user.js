@@ -104,7 +104,8 @@ router.post("/login", async (req, res) => {
     const { userId, password } = req.body
 
     const user = await User.findOne({ userId })
-
+    const { userId, userName } = res.locals.user;
+    
     if (!user) {
         res.status(401).send({
             errorMessage: "존재하지 않는 이메일입니다."
@@ -115,7 +116,7 @@ router.post("/login", async (req, res) => {
         console.log(correctPassword)
         if (correctPassword) {
             const token = jwt.sign({ userId: user.userId }, `${process.env.KEY}`);
-    res.status(200).send({ token })
+    res.status(200).send({ token, userId, userName })
         } else {
             res.status(400).send({errorMessage: '비밀번호를 확인해주세요.' })
         }

@@ -60,9 +60,8 @@ router.get('/modify/:commentId',  async (req, res) => {
 
 // comment destroy
 router.delete('/:commentId',  async (req, res) => {
-  const { userId } = res.locals.user;
   const { commentId } = req.params;
-  await Comment.deleteOne({ userId, commentId });
+  await Comment.deleteOne({ commentId });
   res.send({ result: '성공' });
 });
 
