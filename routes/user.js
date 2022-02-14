@@ -104,7 +104,6 @@ router.post("/login", async (req, res) => {
     const { userId, password } = req.body
 
     const user = await User.findOne({ userId })
-    const { userId, userName } = res.locals.user;
 
     if (!user) {
         res.status(401).send({
