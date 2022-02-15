@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\GON\\Desktop\\node.js\\mini_project\\config\\log\\.44cb7631a8a85f4f1f5e493fd530580a3a5046ec-audit.json",
+    "files": [
+        {
+            "date": 1644928196522,
+            "name": "C:\\Users\\GON\\Desktop\\node.js\\mini_project\\config\\log\\2022-02-15.log",
+            "hash": "5f09d4dbf885d24402f829a8d3692dc4"
+        }
+    ],
+    "hashType": "md5"
+}

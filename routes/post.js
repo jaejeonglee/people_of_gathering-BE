@@ -18,15 +18,11 @@ router.use(express.urlencoded({ extended : true }));
 router.get('/', async (req, res) => { //전체 게시글 조회(메인 페이지)
     const { category } = req.query; //카테고리 검색
     const post = await Post.find({ category });
-    const header = req.headers
-    console.log(header)
     res.json({ post });
 });
 
 router.get('/:postId', async (req, res) => { //게시글, 댓글 가져오기(상세 페이지)
     const { postId } = req.params;
-    const header = req.headers
-    console.log(header)
     const post = await Post.find({ postId : postId });
     const comments = await Comment.find({ postId : postId })
     res.json({ post, comments });
@@ -34,8 +30,6 @@ router.get('/:postId', async (req, res) => { //게시글, 댓글 가져오기(�
 
 router.post('/', async (req, res) => { // 게시글 저장
     const postId = uniqid();
-    const header = req.headers
-    console.log(header)
     const { userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents  } = req.body;
     await Post.create({ postId, userId, title, userName, createDate, deadLine, category, curMembers, maxMembers, contents });
 
@@ -43,16 +37,12 @@ router.post('/', async (req, res) => { // 게시글 저장
 });
 
 router.delete('/delete/:postId', async (req, res) => { //게시글 삭제
-    const header = req.headers
-    console.log(header)
     const { postId } = req.params;
     await Post.deleteOne({ postId : postId });
     res.json({ success : "삭제가 완료 되었습니다"});
 });
 
 router.patch('/modify/:postId', async (req, res) => { //게시글 수정
-    const header = req.headers
-    console.log(header)
     const { title, deadLine, category, maxMembers, contents } = req.body // 클라이언트에서 전달 받은 수정 할 내용
     const { postId } = req.params;
     await Post.updateOne({postId}, {$set:{title, deadLine, category, maxMembers, contents}});
@@ -60,8 +50,6 @@ router.patch('/modify/:postId', async (req, res) => { //게시글 수정
 });
 
 router.post('/join/:postId', async (req, res) => { //참여인원 추가
-    const header = req.headers
-    console.log(header)
     const { postId } = req.params;
     const { userName } = req.body;
     await Post.updateOne({ postId} , {$push: { curMembers : userName }})
@@ -70,8 +58,6 @@ router.post('/join/:postId', async (req, res) => { //참여인원 추가
 });
 
 router.patch('/join/:postId', async (req, res) => { //참여 취소
-    const header = req.headers
-    console.log(header)
     const { postId } = req.params;
     const { userName } = req.body;
     await Post.updateOne({ postId }, { $pull: { curMembers : userName }});

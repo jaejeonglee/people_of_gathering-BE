@@ -43,12 +43,10 @@ router.get('/:postId',  async (req, res) => {
 });
 // comment modify
 router.put('/modify/:commentId',   async (req, res) => {
-  const header = req.headers
-  console.log(header)
   // const { userId, userName } = res.locals.user;
   const { commentId } = req.params;
   console.log(commentId)
-  const { content, userId } = req.body;
+  const { content, userId, userName } = req.body;
   console.log(content, userId)
   const existsComment = await Comment.findOne({ userId, commentId });
   // const { postId } = existsComment.postId;
