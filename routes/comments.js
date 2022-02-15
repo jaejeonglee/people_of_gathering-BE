@@ -14,8 +14,6 @@ router.use(cors(corsOptions));
 
 // create
 router.post('/:postId',  async (req, res) => {
-  const header = req.headers
-  console.log(header)
   const { postId } = req.params;
   const { content, userId, userName } = req.body;
   const recentComment = await Comment.find().sort('-commentId').limit(1);
@@ -33,8 +31,6 @@ router.post('/:postId',  async (req, res) => {
 router.get('/:postId',  async (req, res) => {
   try {
     const { postId } = req.params;
-    const header = req.headers
-    console.log(header)
     let comments = await Comment.find({ postId }).sort('commentId').lean();
     res.json({ comments });
   } catch (err) {
@@ -45,9 +41,7 @@ router.get('/:postId',  async (req, res) => {
 router.put('/modify/:commentId',   async (req, res) => {
   // const { userId, userName } = res.locals.user;
   const { commentId } = req.params;
-  console.log(commentId)
   const { content, userId, userName } = req.body;
-  console.log(content, userId)
   const existsComment = await Comment.findOne({ userId, commentId });
   // const { postId } = existsComment.postId;
   console.log(existsComment)
@@ -68,8 +62,6 @@ router.put('/modify/:commentId',   async (req, res) => {
 
 // comment destroy
 router.delete('/delete/:commentId',  async (req, res) => {
-  const header = req.headers
-  console.log(header)
   const { commentId } = req.params;
   await Comment.deleteOne({ commentId });
   res.send({ result: '성공' });

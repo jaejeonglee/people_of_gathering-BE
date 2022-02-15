@@ -53,7 +53,6 @@ router.post('/join/:postId', async (req, res) => { //참여인원 추가
     const { postId } = req.params;
     const { userName } = req.body;
     await Post.updateOne({ postId} , {$push: { curMembers : userName }})
-    console.log(postId)
     res.json({ success : "추가 되었습니다"});
 });
 
