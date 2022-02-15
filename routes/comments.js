@@ -42,7 +42,7 @@ router.get('/:postId',  async (req, res) => {
   }
 });
 // comment modify
-router.put('/:commentId',   async (req, res) => {
+router.put('/modify/:commentId',   async (req, res) => {
   const header = req.headers
   console.log(header)
   const { userId, userName } = res.locals.user;
@@ -57,13 +57,13 @@ router.put('/:commentId',   async (req, res) => {
   res.send({ result: '성공' });
 });
 
-router.get('/modify/:commentId',  async (req, res) => {
-  const header = req.headers
-  console.log(header)
-  const { commentId } = req.params;
-  comment = await Comment.findOne({ commentId });
-  res.json({ comment });
-});
+// router.get('/:commentId',  async (req, res) => {
+//   const header = req.headers
+//   console.log(header)
+//   const { commentId } = req.params;
+//   comment = await Comment.findOne({ commentId });
+//   res.json({ comment });
+// });
 
 // comment destroy
 router.delete('/delete/:commentId',  async (req, res) => {
