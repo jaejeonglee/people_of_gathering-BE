@@ -45,14 +45,17 @@ router.get('/:postId',  async (req, res) => {
 router.put('/modify/:commentId',   async (req, res) => {
   const header = req.headers
   console.log(header)
-  const { userId, userName } = res.locals.user;
+  // const { userId, userName } = res.locals.user;
   const { commentId } = req.params;
-  const { content } = req.body;
+  console.log(commentId)
+  const { content, userId } = req.body;
+  console.log(content, userId)
   const existsComment = await Comment.findOne({ userId, commentId });
-  const { postId } = existsComment.postId;
+  // const { postId } = existsComment.postId;
+  console.log(existsComment)
   await Comment.updateOne(
     { commentId },
-    { $set: { postId, userId, userName, commentId, content } }
+    { $set: { content } }
   );
   res.send({ result: '성공' });
 });
