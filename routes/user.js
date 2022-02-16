@@ -115,8 +115,8 @@ router.post("/login", async (req, res) => {
         const correctPassword = await bcrypt.compareSync(password, user.password)//hash 값과 req값을 비교해서 일치하면 true 출력 
         console.log(correctPassword)
         if (correctPassword) {
-            const token = jwt.sign({ userId: user.userId }, 'peopleofgethering-secret');
-    res.status(200).send({ token })
+            const token = jwt.sign({ userId: user.userId }, `${process.env.KEY}`);
+    res.status(200).send({ token, userName, userId })
         } else {
             res.status(400).send({errorMessage: '비밀번호가 다릅니다.' })
         }
