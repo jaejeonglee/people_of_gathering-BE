@@ -125,7 +125,7 @@ router.post('/check/email', async (req, res) => {
     const targetEmail = await User.find({ userId })
         if (targetEmail.length) {
             res.status(400).send({
-                errorMessage: 'false'
+                result: 'false'
             })
             return;
         } else {
@@ -142,7 +142,7 @@ router.post('/check/nickname', async (req, res) => {
     const targetName = await User.find({ userName })
         if (targetName.length) {
             res.status(400).send({
-                errorMessage: 'false'
+                result: 'false'
             })
             return;
         } else {
