@@ -138,6 +138,7 @@ router.post('/check/email', async (req, res) => {
 //닉네임 중복 확인
 router.post('/check/nickname', async (req, res) => {
     const { userName } = req.body
+    console.log(req.body)
 
     const targetName = await User.find({ userName })
         if (targetName.length) {
