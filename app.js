@@ -28,12 +28,12 @@ app.use('/user', userRouter);
 app.use('/comment', commentRouter);
 app.use(express.static('static'))
 
-// const corsOptions = {
-//     origin: '*',
-//     // credentials: true
-// };
+const corsOptions = {
+    origin: '*',
+    // credentials: true
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.listen(3000, () => {
     console.log( new Date().toLocaleString() , '서버가 3000포트로 요청을 받을 준비가 됐어요');

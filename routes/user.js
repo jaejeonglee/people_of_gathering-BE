@@ -3,8 +3,15 @@ const jwt = require("jsonwebtoken");
 const User = require("../schemas/user")
 const bcrypt = require("bcrypt")
 const Joi = require('joi')
+const cors = require('cors')
+
+const corsOptions = {
+    origin: '*',
+    // credentials: true
+};
 
 const router = express.Router();
+router.use(cors(corsOptions));
 
 //  회원 가입 양식
 const registerSchema = Joi.object({
