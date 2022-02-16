@@ -118,8 +118,9 @@ router.post("/login", async (req, res) => {
 })
 
 //아이디(email) 중복 확인
-router.post('/check/email', (req, res) => {
+router.post('/check/email', async (req, res) => {
     const { userId } = req.body
+    console.log(req.body)
 
     const targetEmail = await User.find({ userId })
         if (targetEmail.length) {
@@ -135,7 +136,7 @@ router.post('/check/email', (req, res) => {
 })
 
 //닉네임 중복 확인
-router.post('/check/nickname', (req, res) => {
+router.post('/check/nickname', async (req, res) => {
     const { userName } = req.body
 
     const targetName = await User.find({ userName })
