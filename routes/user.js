@@ -1,16 +1,10 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../schemas/user")
-const Joi = require("joi")
-const cors = require('cors')
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt")
+const Joi = require('joi')
 
-const corsOptions = {
-    origin: '*',
-    // credentials: true
-};
 const router = express.Router();
-router.use(cors(corsOptions));
 
 //  회원 가입 양식
 const registerSchema = Joi.object({
@@ -93,9 +87,8 @@ router.post("/signup", async (req, res) => {
             res.status(400).send({
                 errorMessage: '비밀번호 형식을 확인해주세요.'
             })
-        }
+        } 
     }
-
 })
 
 
@@ -110,23 +103,52 @@ router.post("/login", async (req, res) => {
             errorMessage: "존재하지 않는 이메일입니다."
         })
         return
-        
+
     } else {
         const correctPassword = await bcrypt.compareSync(password, user.password)//hash 값과 req값을 비교해서 일치하면 true 출력 
         console.log(correctPassword)
         if (correctPassword) {
-            const userName = user.userName
-            const token = jwt.sign({ userId: user.userId }, `${process.env.KEY}`);
-            console.log(token, userId, userName)
-        res.status(200).send({ token, userName, userId })
-        
+            const token = jwt.sign({ userId: user.userId }, 'peopleofgethering-secret');
+    res.status(200).send({ token })
         } else {
-            res.status(400).send({errorMessage: '비밀번호를 확인해주세요.' })
+            res.status(400).send({errorMessage: '비밀번호가 다릅니다.' })
         }
     }
   
 })
 
+//아이디(email) 중복 확인
+router.post('/check/email', (req, res) => {
+    const { userId } = req.body
 
+    const targetEmail = await User.find({ userId })
+        if (targetEmail.length) {
+            res.status(400).send({
+                result: 'false'
+            })
+            return;
+        } else {
+            res.status(200).send({
+                result: 'true'
+            })
+        }
+})
+
+//닉네임 중복 확인
+router.post('/check/nickname', (req, res) => {
+    const { userName } = req.body
+
+    const targetName = await User.find({ userName })
+        if (targetName.length) {
+            res.status(400).send({
+                result: 'false'
+            })
+            return;
+        } else {
+            res.status(200).send({
+                result: 'true'
+            })
+        }
+})
 
 module.exports = router;
