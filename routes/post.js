@@ -39,6 +39,7 @@ router.post('/', async (req, res) => { // 게시글 저장
 router.delete('/delete/:postId', async (req, res) => { //게시글 삭제
     const { postId } = req.params;
     await Post.deleteOne({ postId : postId });
+    await Comment.deleteMany({ postId : postId })
     res.json({ success : "삭제가 완료 되었습니다"});
 });
 

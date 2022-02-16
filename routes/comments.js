@@ -38,7 +38,7 @@ router.get('/:postId',  async (req, res) => {
   }
 });
 // comment modify
-router.put('/modify/:commentId',   async (req, res) => {
+router.patch('/modify/:commentId',   async (req, res) => {
   // const { userId, userName } = res.locals.user;
   const { commentId } = req.params;
   const { content, userId, userName } = req.body;
