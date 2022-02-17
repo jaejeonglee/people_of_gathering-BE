@@ -3,10 +3,10 @@
 + 팀명 : 모임의 민족 (momin)      
 + 주제 : 모임을 하고자 하는 사람들 모이는 
 + 제작기간: 22.02.11 ~ 22.02.17
-+ BE 참여인원 : 
-+      이재정 : https://github.com/jaejeonglee
-+      이기곤 : https://github.com/LeeKiGon
-+      오경은 : https://github.com/KyungEunO
++ BE 참여인원 
++      [이재정 git 바로가기](https://github.com/jaejeonglee)
++      [이기곤 git 바로가기](https://github.com/LeeKiGon)
++      [오경은 git 바로가기](https://github.com/KyungEunO)
        
        
        
