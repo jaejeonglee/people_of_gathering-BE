@@ -42,7 +42,7 @@
 |기능|method|url|request|response|
 |:--------:|:------------:|:--------------:|:---------------:|:---------------:|
 |로그인|```POST```|/user/login|```{ userId: String,password: String }```|```{ token:token, user: { token : String, userId : string, userName: string }}```|
-|회원가입|```POST```|/api/auth/register|```{ userId: String,userName:String, password: String, passwordConfirm: String }```|```없음```|
+|회원가입|```POST```|/user/signup|```{ userId: String,userName:String, password: String, passwordConfirm: String }```|```없음```|
     
 #### Main Page API       
 
