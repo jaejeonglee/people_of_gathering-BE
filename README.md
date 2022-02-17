@@ -1,4 +1,4 @@
-# 5기 미니 프로젝트 1조(BE)
+#🖥️ 5기 미니 프로젝트 1조(BE)
        
 + 팀명 : 모임의 민족 (momin)      
 + 주제 : 모임을 하고자 하는 사람들 모이는 
@@ -10,7 +10,7 @@
        
        
        
-## GitHub Repogitory      
+## 🗂GitHub Repogitory      
       
 - FrontEnd => [ FrontEndRepo 바로가기 ](https://github.com/borobong2/FE_momin )
 
@@ -18,7 +18,7 @@
 
       
       
-## 프로젝트 타임 테이블      
+##🛠 프로젝트 타임 테이블      
 
 * 작업완료 시 팀원에게 공유 후 즉시 Push & Merge
 * 서로의 코드 공유를 위해 Push 전 항상 Pull 
@@ -32,10 +32,17 @@
 - 23 : 00 BackEnd 저녁 진행상황 공유
 - 23 : 00 ~ 자유롭게 작업 및 휴식     
 
-      
-            
+##🎲사용기술      
+ Backend
+개발언어 : Node.js
+웹프레임워크 : Express
+암호화 : jsonwebtoken
+MongoDB 데이터 모델링 : Mongoose
+Request Resource 제한 : Cors
+DB
+MongoDB           
                   
-## [API 설계](https://www.notion.so/b9b3652faef14f26937b8fd8c8725736)       
+##⚙ [API 설계](https://www.notion.so/b9b3652faef14f26937b8fd8c8725736)       
       
 #### User API      
 
